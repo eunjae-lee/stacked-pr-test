@@ -1,21 +1,22 @@
 name: "test-test"
 on: push
 jobs:
-  check-if-library-release:
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: jwalton/gh-find-current-pr@v1
         id: PR
       - run: |
-          if [[ "${{ steps.PR.outputs.title }}" != "@storyblok/field-plugin-cli@"* ]]; then
-            echo "Title does not start with @storyblok/field-plugin-cli@"
-            exit 1
+          if [[ "${{ steps.PR.outputs.title }}" == "@storyblok/field-plugin-cli@"* ]]; then
+            echo "::set-output name=releasing-library::true"
+          else
+            echo "::set-output name=releasing-library::false"
           fi
   build:
-    needs: check-if-library-release
+    needs: check
     runs-on: ubuntu-latest
-    if: ${{ success() }}
+    if: ${{ needs.check.outputs.releasing-library == 'false' }}
     steps:
       - name: Building
         run: echo "Building!"
