@@ -9,9 +9,9 @@ jobs:
         id: PR
       - run: |
           if [[ "${{ steps.PR.outputs.title }}" == "@storyblok/field-plugin-cli@"* ]]; then
-            echo "::set-output name=releasing-library::true"
+            echo "{releasing-library}={true}" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=releasing-library::false"
+            echo "{releasing-library}={false}" >> $GITHUB_OUTPUT
           fi
   build:
     needs: check
