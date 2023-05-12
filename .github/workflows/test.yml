@@ -8,7 +8,7 @@ jobs:
       - uses: jwalton/gh-find-current-pr@v1
         id: PR
       - run: |
-          echo "title: $${{ steps.PR.outputs.title }}"
+          echo "title: ${{ steps.PR.outputs.title }}"
           if [[ "${{ steps.PR.outputs.title }}" == "@storyblok/field-plugin-cli@"* ]]; then
             echo "releasing"
             echo "{releasing-library}={true}" >> $GITHUB_OUTPUT
@@ -19,7 +19,11 @@ jobs:
   build:
     needs: check
     runs-on: ubuntu-latest
-    if: ${{ needs.check.outputs.releasing-library == 'false' }}
+    # if: ${{ needs.check.outputs.releasing-library == 'false' }}
     steps:
       - name: Building
         run: echo "Building!"
+      - run: echo "1111"
+      - run: echo "${{ needs.check.outputs.releasing-library}}"
+      - run: echo "2222"
+      - run: echo "${{ needs.check.outputs}}"
