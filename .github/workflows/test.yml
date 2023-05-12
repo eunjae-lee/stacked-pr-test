@@ -1,15 +1,15 @@
 name: "test-test"
 on: push
-permissions:
-  pull-requests: read
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
     steps:
       - uses: actions/checkout@v3
       # Find the PR associated with this push, if there is one.
-      - uses: 8BitJonny/gh-get-current-pr@2.2.0
+      - uses: jwalton/gh-find-current-pr@v1
         id: PR
       - run: echo "${PR}"
       - run: echo "############"
-      - run: echo "${{ steps.PR.outputs.pr }}"
+      - run: echo "${{ steps.PR }}"
