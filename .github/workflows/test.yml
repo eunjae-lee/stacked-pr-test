@@ -11,5 +11,5 @@ jobs:
         with:
           github-token: ${{ github.token }}
       - run: echo "${PR}"
-      - run: echo "############"
+      - run: echo "#############"
       - run: echo "${{ steps.PR }}"
