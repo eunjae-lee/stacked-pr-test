@@ -3,15 +3,18 @@ on: push
 jobs:
   check:
     runs-on: ubuntu-latest
+    outputs:
+      releasing-library: ${{ steps.validation.outputs.result }}
     steps:
       - uses: actions/checkout@v3
-      - uses: jwalton/gh-find-current-pr@v1
-        id: PR
-      - run: |
+      - id: PR
+        uses: jwalton/gh-find-current-pr@v1
+      - id: validation
+        run: |
           if [[ "${{ steps.PR.outputs.title }}" == "@storyblok/field-plugin-cli@"* ]]; then
-            echo "::set-output name=releasing-library::true"
+            echo "::set-output name=result::true"
           else
-            echo "::set-output name=releasing-library::false"
+            echo "::set-output name=result::false"
           fi
   build:
     needs: check
