@@ -1,7 +1,7 @@
 name: "test-test"
 on: push
 jobs:
-  test:
+  check-if-library-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -12,3 +12,10 @@ jobs:
             echo "Title does not start with @storyblok/field-plugin-cli@"
             exit 1
           fi
+  build:
+    needs: check-if-library-release
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+    steps:
+      - name: Building
+        run: echo "Building!"
