@@ -1,25 +1,12 @@
 name: "test-test"
 on: push
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    outputs:
-      releasing-library: ${{ steps.validation.outputs.result }}
-    steps:
-      - uses: actions/checkout@v3
-      - id: PR
-        uses: jwalton/gh-find-current-pr@v1
-      - id: validation
-        run: |
-          if [[ "${{ steps.PR.outputs.title }}" == "@storyblok/field-plugin-cli@"* ]]; then
-            echo "::set-output name=result::true"
-          else
-            echo "::set-output name=result::false"
-          fi
   build:
-    needs: check
+    needs: check-if-releasing-library
     runs-on: ubuntu-latest
-    if: ${{ needs.check.outputs.releasing-library == 'false' }}
+    if: ${{ needs.check-if-releasing-library.outputs.result == 'false' }}
     steps:
       - name: Building
         run: echo "Building!"
+
+  include: ./check-if-releasing-library.yml
