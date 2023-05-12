@@ -10,4 +10,4 @@ jobs:
     if: ${{ needs.check-if-releasing-library.outputs.result == 'false' }}
     steps:
       - name: Building
-        run: echo "Building!"
+        run: echo "Building!!"
