@@ -2,7 +2,7 @@ on:
   workflow_call:
     outputs:
       result:
-        value: "${{ jobs.check-if-releasing-library.outputs.result }}"
+        value: ${{ jobs.check-if-releasing-library.outputs.result }}
 
 jobs:
   check-if-releasing-library:
@@ -17,10 +17,8 @@ jobs:
         run: |
           if [[ "${{ steps.PR.outputs.title }}" == "@storyblok/field-plugin-cli@"* ]]; then
             echo "releasing library"
-            echo "::set-output name=result::true"
-            echo "{result}={'true'}" >> $GITHUB_OUTPUT
+            echo "result=true" >> $GITHUB_OUTPUT
           else
             echo "not releasing library"
-            echo "::set-output name=result::false"
-            echo "{result}={'false'}" >> $GITHUB_OUTPUT
+            echo "result=false" >> $GITHUB_OUTPUT
           fi
