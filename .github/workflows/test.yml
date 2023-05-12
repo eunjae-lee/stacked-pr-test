@@ -26,4 +26,4 @@ jobs:
       - run: echo "1111"
       - run: echo "${{ needs.check.outputs.releasing-library}}"
       - run: echo "2222"
-      - run: echo "${{ needs.check.outputs}}"
+      - run: echo "${{ toJson(needs.check.outputs) }}"
