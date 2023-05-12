@@ -5,15 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      # Find the PR associated with this push, if there is one.
-      - name: Step 1
-        id: PRRRR
-        uses: actions/github-script@v4
-        with:
-          script: |
-            const title = github.context.payload.pull_request.title;
-            console.log(`PR title: ${title}`);
-            return { title };
       - uses: jwalton/gh-find-current-pr@v1
         id: PR
-      - run: echo "${{ steps.PR.outputs.title }}"
+      - run: |
+          if [[ "${{ steps.PR.outputs.title }}" != "@storyblok/field-plugin-cli@"* ]]; then
+            echo "Title does not start with @storyblok/field-plugin-cli@"
+            exit 1
+          fi
