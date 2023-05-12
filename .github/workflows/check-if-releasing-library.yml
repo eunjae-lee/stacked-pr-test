@@ -2,8 +2,7 @@ on:
   workflow_call:
     outputs:
       result:
-        value: "true"
-        # value: ${{ jobs.check-if-releasing-library.outputs.result }}
+        value: "${{ jobs.check-if-releasing-library.outputs.result }}"
 
 jobs:
   check-if-releasing-library:
