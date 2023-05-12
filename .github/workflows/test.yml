@@ -1,6 +1,7 @@
 name: "test-test"
 on: push
-
+permissions:
+  pull-requests: read
 jobs:
   test:
     runs-on: ubuntu-latest
