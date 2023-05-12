@@ -6,8 +6,8 @@ jobs:
   build:
     needs: check-if-releasing-library
     runs-on: ubuntu-latest
-    # if: ${{ needs.check-if-releasing-library.outputs.result == 'false' }}
+    if: ${{ needs.check-if-releasing-library.outputs.result == 'false' }}
     steps:
       - name: Building
         run: echo "Building!!"
-      - run: echo "${{ toJson(needs) }}"
+      - run: echo "${{ toJson(needs.check-if-releasing-library.outputs) }}"
