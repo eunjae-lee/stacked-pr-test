@@ -2,8 +2,8 @@ on:
   workflow_call:
     outputs:
       result:
-        description: If Releasing Library
-        value: ${{ jobs.check-if-releasing-library.outputs.result }}
+        value: "true"
+        # value: ${{ jobs.check-if-releasing-library.outputs.result }}
 
 jobs:
   check-if-releasing-library:

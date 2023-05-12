@@ -1,13 +1,14 @@
 name: "test-test"
 on: push
 jobs:
-  check-if-releasing-library:
+  check:
     uses: ./.github/workflows/check-if-releasing-library.yml
+
   build:
-    needs: check-if-releasing-library
+    needs: check
     runs-on: ubuntu-latest
-    # if: ${{ needs.check-if-releasing-library.outputs.result == 'false' }}
+    # if: ${{ needs.check.outputs.result == 'false' }}
     steps:
       - name: Building
         run: echo "Building!!"
-      - run: echo "${{ toJson(needs.check-if-releasing-library.outputs) }}"
+      - run: echo "${{ toJson(needs.check.outputs) }}"
