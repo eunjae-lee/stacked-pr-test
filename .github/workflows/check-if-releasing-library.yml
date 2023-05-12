@@ -1,3 +1,6 @@
+on:
+  workflow_call:
+
 jobs:
   check-if-releasing-library:
     runs-on: ubuntu-latest
