@@ -19,9 +19,6 @@ jobs:
   build:
     needs: check
     runs-on: ubuntu-latest
-    # if: ${{ needs.check.outputs.releasing-library == 'false' }}
     steps:
       - name: Building
         run: echo "Building!"
-      - run: echo "${{ needs.check.outputs.releasing-library }}"
-      - run: echo "${{ toJson(needs.check) }}"
